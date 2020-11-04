@@ -1,9 +1,14 @@
-from init_constants import plotFileField
-from calibration_postprocessing import kernelAveraging
+try:
+    from .init_constants import plotFileField
+    from .calibration_postprocessing import kernelAveraging
+    from .init_constants import plotField
+except ImportError:
+    from init_constants import plotFileField
+    from calibration_postprocessing import kernelAveraging
+    from init_constants import plotField
 import numpy as np
 from numpy.linalg import pinv,norm
 import matplotlib.pyplot as plt
-from init_constants import plotField
 
 #kernel averaging
 smoothingField=False
