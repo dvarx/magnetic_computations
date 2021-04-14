@@ -175,14 +175,17 @@ class actuationComputer:
 Plot field in workspace for a certain desired (field,gradient) combination
 """
 if __name__=="__main__":
-    calibrationFileString=r"../calibration/minimag_calibration/mfg-100_00_meas_vfield_0%i.txt"
+    calibrationFileString=r"./calibration/minimag_calibration/mfg-100_00_meas_vfield_0%i.txt"
     act_computer=actuationComputer(calibrationFileString)
-    desB=np.array([5e-3,0,0])   #in [mT]
-    desG=np.array([1,0,0])      #in [mT/mm]
+    desB=np.array([40e-3,0,0])   #in [mT]
+    desG=np.array([0,0,0])      #in [mT/mm]
     
     A=act_computer.getA([0,0,0],[1,0,0])
+    B=act_computer.getB([0,0,0])
     i=np.linalg.pinv(A).dot(np.concatenate((desB,desG),0))
+    ib=np.linalg.pinv(B).dot(desB)
     
     print("%-40s%s"%("Desired Magnetic Flux 'B':",str(desB)))
     print("%-40s%s"%("Desired Magnetic Flux Gradient 'G':",str(desG)))
-    print("%-40s%s"%("Necessary Currents 'i':",str(i)))
+    print("%-40s%s"%("Necessary Currents 'i':",np.array2string(i,precision=2,formatter={'float_kind':lambda x: "%+06.2f" % x})))
+    print("%-40s%s"%("Necessary Currents (d.c. gradient):",np.array2string(ib,precision=2,formatter={'float_kind':lambda x: "%+06.2f" % x})))

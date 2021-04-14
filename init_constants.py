@@ -8,7 +8,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import random
 from math import sqrt
 import sys
-from mayavi.mlab import quiver3d
+#from mayavi.mlab import quiver3d
 
 #cube version
 cubeNumber=2    #or 1...
